@@ -8,7 +8,7 @@ This is only intended for systems running the headless Raspbian OS Lite.
 
 ## Role Variables
 
-`global_python_packages` - List of packages to be installed with pipx. List entries must be in the format `- name: <package>`
+`global_python_packages` - List of packages to be installed with pipx. 
 
 ## Dependencies
 

@@ -1,43 +1,44 @@
 ---
-- name: Ensure pip3 is installed
-  apt:
-    name: python3-pip
-    state: present
-
-- name: Ensure pipx is installed
+  - name: Ensure required OS packages are installed
+    apt:
+      name: python3-pip, python3-venv
+      state: present
+  
+  - name: Ensure pipx is installed
     pip:
-    name: pipx
-    executable: pip3
-
-- name: Ensure global python packages for pipx are installed
-    command: 
-    cmd: python3 -m pipx install {{ item.name }}
-    creates: ~pi/.local/bin/{{ item.name }}
-  loop: global_python_packages
-
-- name: Ensure ~pi/.local/bin is on the path (required for pipx installed tools)
+      name: pipx
+      executable: pip3
+  
+  - name: Ensure global python packages for pipx are installed
+    command:
+      cmd: python3 -m pipx install {{ item }}
+      creates: ~pi/.local/bin/{{ item }}
+    with_items: "{{ global_python_packages }}"
+  
+  - name: Ensure ~pi/.local/bin is on the path (required for pipx installed tools)
     lineinfile:
-    path: ~pi/.bashrc
-    regexp: '^export PATH=~pi/\.local/bin'
-    line: 'export PATH=~pi/.local/bin:$PATH'
-
-- name: Ensure pi user's dotfiles are present in home folder
+      path: ~pi/.bashrc
+      regexp: '^export PATH=~pi/\.local/bin'
+      line: 'export PATH=~pi/.local/bin:$PATH'
+  
+  - name: Ensure pi user's dotfiles are present in home folder
     copy:
-    src: "{{ item }}"
-    dest: ~pi/.{{ item.split("/")[-1] }}
-    owner: pi
-    group: pi
-    mode: 0640
+      src: "{{ item }}"
+      dest: ~pi/.{{ item.split("/")[-1] }}
+      owner: pi
+      group: pi
+      mode: 0640
     with_fileglob:
     - "files/dotfiles/*"
-
-- name: Ensure dotfiles are present for root user (for things like sudo vi ...)
+  
+  - name: Ensure dotfiles are present for root user (for things like sudo vi ...)
     copy:
-    src: "{{ item }}"
-    dest: ~root/.{{ item.split("/")[-1] }}
-    owner: root
-    group: root
-    mode: 0640
+      src: "{{ item }}"
+      dest: ~root/.{{ item.split("/")[-1] }}
+      owner: root
+      group: root
+      mode: 0640
     with_fileglob:
     - "files/dotfiles/*"
     become: yes
+  
