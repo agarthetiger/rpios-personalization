@@ -1,0 +1,10 @@
+"\e[A": history-search-backward            # arrow up
+"\e[B": history-search-forward             # arrow down
+"\e\e[C": forward-word			   # Option + arrow left
+"\e\e[D": backward-word 		   # Option + arrow right
+
+## Immediately expand list of possible word completions, rather than ringing the bell
+set show-all-if-ambiguous on
+
+## Search for possible completions in a case-insensitive manner
+set completion-ignore-case on

@@ -1,0 +1,17 @@
+galaxy_info:
+  author: Andrew Garner
+  description: My personal OS preferences for Raspbian OS
+  license: MIT
+  min_ansible_version: 2.9
+  platforms:
+  - name: Raspbian
+    versions:
+    - 10
+    - Buster
+  - name: Debian
+    versions:
+    - 10
+    - Buster
+  galaxy_tags: []
+dependencies: []
+  
