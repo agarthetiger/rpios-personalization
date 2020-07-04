@@ -1,4 +1,10 @@
 ---
+- name: Include dotfiles configuration
+  include_tasks: dotfiles.yml
+
+- name: Include vim configuration
+  include_tasks: vim.yml
+  
 - name: Ensure required OS packages are installed
   apt:
     name: python3-pip, python3-venv
