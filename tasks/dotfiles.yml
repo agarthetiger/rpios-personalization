@@ -1,0 +1,21 @@
+---
+- name: Ensure pi user's dotfiles are present in home folder
+  copy:
+    src: "{{ item }}"
+    dest: ~pi/.{{ item.split("/")[-1] }}
+    owner: pi
+    group: pi
+    mode: 0640
+  with_fileglob:
+  - "files/dotfiles/*"
+
+- name: Ensure dotfiles are present for root user (for things like sudo vi ...)
+  copy:
+    src: "{{ item }}"
+    dest: ~root/.{{ item.split("/")[-1] }}
+    owner: root
+    group: root
+    mode: 0640
+  with_fileglob:
+  - "files/dotfiles/*"
+  become: yes

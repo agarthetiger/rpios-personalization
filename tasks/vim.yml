@@ -1,0 +1,13 @@
+---
+- name: Ensure vim-tiny is not present
+  apt:
+    name: vim-tiny
+    state: absent
+  become: yes
+
+- name: Ensure vim is present
+  apt:
+    name: vim
+    state: present
+  become: yes
+
