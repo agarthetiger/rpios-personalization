@@ -4,14 +4,8 @@ galaxy_info:
   license: MIT
   min_ansible_version: 2.9
   platforms:
-  - name: Raspbian
-    versions:
-    - 10
-    - Buster
   - name: Debian
     versions:
-    - 10
-    - Buster
+    - buster
   galaxy_tags: []
 dependencies: []
-  
