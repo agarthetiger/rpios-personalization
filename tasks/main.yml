@@ -7,24 +7,19 @@
   
 - name: Ensure required OS packages are installed
   apt:
-    name: python3-pip, python3-venv
+    name: python3-pip, python3-venv, pipx
     state: present
   become: yes
 
-- name: Ensure pipx is installed
-  pip:
-    name: pipx
-    executable: pip3
-
 - name: Ensure global python packages for pipx are installed
   command:
-    cmd: python3 -m pipx install {{ item }}
-    creates: ~pi/.local/bin/{{ item }}
+    cmd: pipx install {{ item }}
+    creates: ~/.local/bin/{{ item }}
   with_items: "{{ global_python_packages }}"
 
-- name: Ensure ~pi/.local/bin is on the path (required for pipx installed tools)
+- name: Ensure ~/.local/bin is on the path (required for pipx installed tools)
   lineinfile:
-    path: ~pi/.bashrc
-    regexp: '^export PATH=~pi/\.local/bin'
-    line: 'export PATH=~pi/.local/bin:$PATH'
+    path: ~/.bashrc
+    regexp: '^export PATH=~/\.local/bin'
+    line: 'export PATH=~/.local/bin:$PATH'
 

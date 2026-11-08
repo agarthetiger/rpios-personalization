@@ -1,10 +1,8 @@
 ---
-- name: Ensure pi user's dotfiles are present in home folder
+- name: Ensure current user's dotfiles are present in home folder
   copy:
     src: "{{ item }}"
-    dest: ~pi/.{{ item.split("/")[-1] }}
-    owner: pi
-    group: pi
+    dest: ~/.{{ item.split("/")[-1] }}
     mode: 0640
   with_fileglob:
   - "files/dotfiles/*"
